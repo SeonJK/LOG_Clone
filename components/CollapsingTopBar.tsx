@@ -93,6 +93,7 @@ const CollapsingTopBar: React.FC<CollapsingTopBarProps> = ({
           { useNativeDriver: false }
         )}
         scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
       >
         {children}
       </Animated.ScrollView>
