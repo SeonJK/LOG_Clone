@@ -1,118 +1,61 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+// MyScreen.tsx
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { View, StyleSheet, Alert, Text, ScrollView } from 'react-native';
+import CollapsingTopBar from './components/CollapsingTopBar';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+const MyScreen: React.FC = () => {
+  const goProfile = () => {
+    Alert.alert('이미지 클릭', '프로필을 클릭하였습니다.');
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <CollapsingTopBar
+        logo='LOG'
+        title="건강등급"
+        imageSource={require('./assets/image_profile_default.jpg')}
+        onImagePress={goProfile}
+      >
+        <View style={styles.adBox} />
+
+        <View style={styles.mockCard}/>
+        <View style={styles.mockCard}/>
+        <View style={styles.mockCard}/>
+        <View style={styles.mockCard}/>
+
+      </CollapsingTopBar>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    backgroundColor: '#D9DADB',
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  scroll_view: {
+    flex: 1,
+    backgroundColor: '#D9DADB',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  title: {
+    fontSize: 36,
+    color: 'black',
+    fontWeight: 'bold',
   },
-  highlight: {
-    fontWeight: '700',
+  adBox: {
+    height: 80,
+    backgroundColor: 'white',
+    marginTop: 15,
+    borderRadius: 4,
+  },
+  mockCard: {
+    height: 200,
+    marginTop: 30,
+    backgroundColor: 'white',
+    borderRadius: 16
   },
 });
 
-export default App;
+export default MyScreen;
