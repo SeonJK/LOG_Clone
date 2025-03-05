@@ -5,6 +5,8 @@ import CollapsingTopBar from './components/CollapsingTopBar';
 import GradeSlider from './components/GradeSlider';
 import DividerVertical from './components/DividerVertical';
 import ButtonCommon from './components/ButtonCommon';
+import MyLineChart from './components/MyLineChart';
+import DividerHorizontal from './components/DividerHorizontal';
 
 const MyScreen: React.FC = () => {
   const goProfile = () => {
@@ -35,7 +37,7 @@ const MyScreen: React.FC = () => {
             선종균님은{'\n'}무궁무진한 건강잠재력🌱
           </Text>
 
-          <View style={styles.row}>
+          <View style={styles.gradeRow}>
             <View style={styles.gradeColumn}>
               <Text style={styles.hintText}>건강등급</Text>
               <Text style={styles.bigText}>6</Text>
@@ -58,11 +60,54 @@ const MyScreen: React.FC = () => {
           <ButtonCommon text='분석 결과 더보기' />
         </View>
 
+        {/* 건강검진 결과 요약 카드 */}
+        <View style={styles.commonCard}>
+          <Text style={styles.cardTitle}>건강검진 결과</Text>
 
-        <View style={styles.mockCard}/>
-        <View style={styles.mockCard}/>
-        <View style={styles.mockCard}/>
-        <View style={styles.mockCard}/>
+          <View style={styles.examineRow}>
+            <View style={styles.examineColumn}>
+              <Text style={styles.examineLabel}>혈압(최고/최저)</Text>
+              <Text style={styles.examinesubTitle}>112/63</Text>
+              <Text style={styles.examineTag}>정상</Text>
+            </View>
+
+            <MyLineChart data1={119.0} data2={116.0} data3={112.0} />
+          </View>
+          <DividerHorizontal />
+
+          <View style={styles.examineRow}>
+            <View style={styles.examineColumn}>
+              <Text style={styles.examineLabel}>공복혈당</Text>
+              <Text style={styles.examinesubTitle}>89</Text>
+              <Text style={styles.examineTag}>정상</Text>
+            </View>
+
+            <MyLineChart data1={89.0} data2={78.0} data3={89.0} />
+          </View>
+          <DividerHorizontal />
+
+          <View style={styles.examineRow}>
+            <View style={styles.examineColumn}>
+              <Text style={styles.examineLabel}>총콜레스테롤</Text>
+              <Text style={styles.examinesubTitle}>175</Text>
+              <Text style={styles.examineTag}>정상</Text>
+            </View>
+
+            <MyLineChart data1={175.0} data2={0} data3={0} />
+          </View>
+          <DividerHorizontal />
+
+          <ButtonCommon text='건강검진 결과 더보기' />
+        </View>
+
+        {/* 건강등급 산출 & 검진결과 등록 카드 */}
+        <View style={styles.mockCard}>
+        </View>
+        {/* 의료 이용 기록 카드 */}
+        <View style={styles.mockCard}>
+        </View>
+
+        {/* 나의 3대 질병 위험도 카드 */}
         <View style={styles.mockCard}>
         </View>
 
@@ -116,12 +161,44 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
+  gradeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 20,
+  },
   gradeColumn: {
     flexDirection: 'column',
     alignItems: 'center',
   },
 
+  examineRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  examineColumn: {
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
+  examineLabel: {
+    fontSize: 12,
+    color: 'grey',
+  },
+  examinesubTitle: {
+    fontSize: 26,
+    color: 'black',
+    fontWeight: 'bold'
+  },
+  examineTag: {
+    width: 'auto',
     borderRadius: 4,
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    color: 'white',
+    backgroundColor: 'green',
+    textAlign: 'center'
+  },
+
   cardTitle: {
     color: 'black',
     fontWeight: 'bold',
@@ -137,11 +214,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginBottom: 20,
-  },
   mockCard: {
     height: 200,
     marginTop: 30,
