@@ -4,17 +4,15 @@ import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 
 interface MyLineChartProps {
-    data1: number,
-    data2: number,
-    data3: number,
+    dataList: number[]
 }
 
 const MyLineChart: React.FC<MyLineChartProps> = ({
-    data1, data2, data3
+    dataList
 }) => {
     const chartWidth = Dimensions.get('window').width * 3 / 7;
 
-    const originalData = [data1, data2, data3];
+    const originalData = dataList;
     // 0이 아닌 값만 필터링
     const filteredData = originalData.filter(value => value !== 0);
 
