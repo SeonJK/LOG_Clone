@@ -7,13 +7,27 @@ import DividerVertical from './components/DividerVertical';
 import ButtonCommon from './components/ButtonCommon';
 import MyLineChart from './components/MyLineChart';
 import DividerHorizontal from './components/DividerHorizontal';
+import ChipList from './components/MyChip';
+import MyBarChart from './components/MyBarChart';
 
 const MyScreen: React.FC = () => {
   const goProfile = () => {
     Alert.alert('이미지 클릭', '프로필을 클릭하였습니다.');
   };
 
-  const [value, setValue] = useState(5);
+  const [selectedDisease, setSelectedDisease] = useState('암');
+  const diseasePercentList = (() => {
+    switch(selectedDisease) {
+      case '암':
+        return [67, 23, 56];
+      case '뇌혈관질환':
+        return [54, 17, 118];
+      case '심장질환':
+        return [50, 7, 151];
+      default:
+        return [50, 50, 90];
+    }
+  });
 
   return (
     <SafeAreaView style={styles.container}>s
@@ -71,7 +85,7 @@ const MyScreen: React.FC = () => {
               <Text style={styles.examineTag}>정상</Text>
             </View>
 
-            <MyLineChart data1={119.0} data2={116.0} data3={112.0} />
+            <MyLineChart dataList={[119.0, 116.0, 112.0]} />
           </View>
           <DividerHorizontal />
 
@@ -82,7 +96,7 @@ const MyScreen: React.FC = () => {
               <Text style={styles.examineTag}>정상</Text>
             </View>
 
-            <MyLineChart data1={89.0} data2={78.0} data3={89.0} />
+            <MyLineChart dataList={[89.0, 78.0, 89.0]} />
           </View>
           <DividerHorizontal />
 
@@ -93,22 +107,39 @@ const MyScreen: React.FC = () => {
               <Text style={styles.examineTag}>정상</Text>
             </View>
 
-            <MyLineChart data1={175.0} data2={0} data3={0} />
+            <MyLineChart dataList={[175]} />
           </View>
           <DividerHorizontal />
 
           <ButtonCommon text='건강검진 결과 더보기' />
         </View>
 
-        {/* 건강등급 산출 & 검진결과 등록 카드 */}
-        <View style={styles.mockCard}>
-        </View>
-        {/* 의료 이용 기록 카드 */}
-        <View style={styles.mockCard}>
+        <View style={styles.row}>
+          {/* 건강등급 산출 & 검진결과 등록 카드 */}
+          <View style={styles.updateCard}>
+            <Text style={styles.updateTitle}>건강등급 산출 &{'\n'}검진결과 등록</Text>
+            <Text style={styles.updateText}>등급 업데이트하기</Text>
+          </View>
+
+          {/* 의료 이용 기록 카드 */}
+          <View style={styles.commonCard}>
+            <Text style={styles.hsPhTitle}>의료 이용 기록</Text>
+            <Text style={styles.hintText}>병원/약국 기록{'\n'}살펴보기</Text>
+          </View>
         </View>
 
         {/* 나의 3대 질병 위험도 카드 */}
-        <View style={styles.mockCard}>
+        <View style={styles.commonCard}>
+          <Text style={styles.cardTitle}>나의 3대 질병 위험도</Text>
+
+          <ChipList 
+            chipList={['암', '뇌혈관질환', '심장질환']}
+            selectedData={ selectedDisease }
+            onPress={ (chip) => setSelectedDisease(chip) }
+          />
+          <MyBarChart
+            dataList={ diseasePercentList() }
+          />
         </View>
 
       </CollapsingTopBar>
@@ -137,6 +168,7 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: 'white',
     marginTop: 15,
+    marginBottom: 20,
     borderRadius: 8,
     justifyContent: 'center', // 수직 정렬
     alignItems: 'center',     // 수평 정렬
@@ -144,7 +176,8 @@ const styles = StyleSheet.create({
 
   commonCard: {
     height: 'auto',
-    marginTop: 30,
+    flex: 1,
+    marginTop: 10,
     padding: 16,
     backgroundColor: 'white',
     borderRadius: 16,
@@ -199,6 +232,31 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 
+  updateCard: {
+    backgroundColor: '#a7abee',
+    height: 'auto',
+    flex: 1,
+    marginTop: 10,
+    padding: 16,
+    borderRadius: 16,
+    flexDirection: 'column',
+    marginRight: 10,
+
+  },
+  updateTitle: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  updateText: {
+    color: 'white'
+  },
+  hsPhTitle: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
   cardTitle: {
     color: 'black',
     fontWeight: 'bold',
@@ -214,6 +272,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  row: {
+    width: '100%',
+    flexDirection: 'row',
+  },
   mockCard: {
     height: 200,
     marginTop: 30,
