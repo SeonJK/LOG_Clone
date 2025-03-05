@@ -5,12 +5,9 @@ import {
   Dimensions,
   View,
   StyleSheet,
-  StatusBar,
-  ScrollView,
   TouchableOpacity,
   Image,
   ImageSourcePropType,
-  Text,
 } from 'react-native';
 
 const HEADER_MAX_HEIGHT = 120; // 확장 상태 헤더 높이
