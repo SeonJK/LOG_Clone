@@ -26,20 +26,20 @@ const Chip: React.FC<ChipProps> = ({ label, selected, onPress }) => {
 };
 
 interface ChipListProps {
-    chipList: string[]
+    chipList: string[],
+    selectedData: string,
+    onPress: (chip: string) => void
 }
 
-const ChipList: React.FC<ChipListProps> = ({ chipList }) => {
-  const [selectedChip, setSelectedChip] = useState<string | null>(null);
-
+const ChipList: React.FC<ChipListProps> = ({ chipList, selectedData, onPress }) => {
   return (
     <View style={styles.chipListContainer}>
       {chipList.map((chip) => (
         <Chip
           key={chip}
           label={chip}
-          selected={selectedChip === chip}
-          onPress={() => setSelectedChip(chip)}
+          selected={selectedData === chip}
+          onPress={() => onPress(chip)}
         />
       ))}
     </View>

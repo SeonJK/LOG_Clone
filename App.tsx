@@ -8,13 +8,26 @@ import ButtonCommon from './components/ButtonCommon';
 import MyLineChart from './components/MyLineChart';
 import DividerHorizontal from './components/DividerHorizontal';
 import ChipList from './components/MyChip';
+import MyBarChart from './components/MyBarChart';
 
 const MyScreen: React.FC = () => {
   const goProfile = () => {
     Alert.alert('이미지 클릭', '프로필을 클릭하였습니다.');
   };
 
-  const [value, setValue] = useState(5);
+  const [selectedDisease, setSelectedDisease] = useState('암');
+  const diseasePercentList = (() => {
+    switch(selectedDisease) {
+      case '암':
+        return [67, 23, 56];
+      case '뇌혈관질환':
+        return [54, 17, 118];
+      case '심장질환':
+        return [50, 7, 151];
+      default:
+        return [50, 50, 90];
+    }
+  });
 
   return (
     <SafeAreaView style={styles.container}>s
@@ -119,7 +132,14 @@ const MyScreen: React.FC = () => {
         <View style={styles.commonCard}>
           <Text style={styles.cardTitle}>나의 3대 질병 위험도</Text>
 
-          <ChipList chipList={['암', '뇌혈관질환', '심장질환']} />
+          <ChipList 
+            chipList={['암', '뇌혈관질환', '심장질환']}
+            selectedData={ selectedDisease }
+            onPress={ (chip) => setSelectedDisease(chip) }
+          />
+          <MyBarChart
+            dataList={ diseasePercentList() }
+          />
         </View>
 
       </CollapsingTopBar>
